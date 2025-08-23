@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Négyzetes játék</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game-wrapper">
+  <div id="orange-container"></div>
+  <div id="yellow-row"></div>
+  <div id="round-label"></div>
+  <div id="score-label">Eredmény: 0 pont</div>
+  <div id="blue-frame"></div>
+  <div id="timer-container">3:00</div>
+  <div id="start-message">Készülj!</div>
+  <div id="dictionary-button" class="button">Szótár</div>
+  <div id="ok-button" class="button">OK</div>
+  <div id="new-game-button" class="button">Új játék</div>
+
+  <!-- Toplista konténer -->
+  <div id="toplista-container"></div>
+
+  <!-- Névbekérő prompt -->
+  <div id="namePrompt" class="hidden">
+  <label for="playerNameInput">Add meg a neved:</label>
+  <input type="text" id="playerNameInput" placeholder="Add meg a neved">
+</div>
+
+</div> <!-- Ez zárja le a game-wrapper-t! ✅ -->
+
+
+<!-- Script fájlok -->
+  <script src="szavak.js"></script>
+  <script src="script.js"></script>
+  <script src="checker.js"></script>
+</body>
+
+</html>

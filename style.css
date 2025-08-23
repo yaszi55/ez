@@ -1,0 +1,227 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  position: relative;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+#game-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+}
+#orange-container {
+  position: absolute;
+  top: 2vh;
+  left: 2vw;
+  
+  transform-origin: top left;
+}
+
+
+.square {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.orange {
+  background-color: orange;
+}
+
+.red {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.yellow {
+  position: relative;
+  background-color: yellow;
+  cursor: grab;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.yellow .number {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  font-size: 12px;
+  font-weight: normal;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#yellow-row {
+  position: absolute;
+  top: calc(1* 41px);
+  left: calc(18 * 41px - 2mm);
+  width: calc(5 * 41px + 6mm);
+  height: calc(2 * 41px); /* két sor magassága */
+  display: flex;
+  flex-wrap: wrap; /* engedélyezi a sortörést */
+  overflow-x: auto;
+  gap: 2px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+#timer-container {
+  position: absolute;
+  top: calc(3 * 41px + 5mm);
+  left: calc(18 * 41px - 2mm);
+  width: calc(6 * 41px);
+  height: 41px;
+  background-color: #333;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.button {
+  position: absolute;
+  width: calc(3 * 41px - 1mm);
+  height: calc(2 * 41px - 4mm);
+  background-color: #ccc;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+}
+
+#dictionary-button {
+  top: calc(9 * 41px + 6mm);
+  left: calc(18 * 41px - 2mm);
+}
+
+#ok-button {
+  top: calc(9 * 41px + 6mm);
+  left: calc(10mm + 20 * 41px);
+}
+
+#new-game-button {
+  top: calc(11 * 41px + 4mm);
+  left: calc(18 * 41px - 2mm);
+  width: calc(6 * 41px);
+  height: calc(1 * 41px);
+}
+
+#blue-frame {
+  position: absolute;
+  top: calc(4 * 41px + 6mm);
+  left: calc(18 * 41px - 2mm);
+  width: calc(5 * 41px + 7mm);
+  height: calc(5 * 41px - 6mm);
+  border: solid 2mm darkblue;
+  border-radius: 16px;
+  z-index: 0;
+}
+
+#start-message {
+  position: absolute;
+  top: calc(5 * 41px + 8mm);
+  left: calc(18 * 41px);
+  width: calc(6 * 41px - 4mm);
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  color: darkblue;
+  z-index: 2;
+}
+
+#round-label {
+  position: absolute;
+  top: calc(4 * 41px + 9mm);
+  left: calc(18 * 41px + 1mm);
+  width: calc(6 * 41px - 4mm);
+  font-weight: bold;
+  color: darkblue;
+  font-size: 20px;
+  z-index: 2;
+}
+
+#score-label {
+  position: absolute;
+  top: calc(9 * 41px - 5mm);
+  left: calc(18 * 41px + 1mm);
+  width: calc(6 * 41px - 4mm);
+  font-weight: bold;
+  color: darkgreen;
+  font-size: 20px;
+  white-space: pre-line;
+  z-index: 2;
+}
+#toplista-container {
+  position: absolute;
+  top: 2mm;
+  left: calc(4mm + 23 * 41px + 6mm);
+  width: calc(4 * 41px - 4mm);
+  padding: 8px;
+  background-color: #f0f8ff;
+  border: 2px solid darkblue;
+  border-radius: 12px;
+  font-size: 18px;
+  color: darkblue;
+  line-height: 1.6;
+  z-index: 2;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+}
+
+.toplista-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.toplista-entry {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+/* Névbekérő prompt */
+#namePrompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 2px solid darkblue;
+  border-radius: 12px;
+  padding: 20px;
+  z-index: 10;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+}
+
+#playerNameInput {
+  width: 200px;
+  font-size: 18px;
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.hidden {
+  display: none;
+}
