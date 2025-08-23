@@ -501,8 +501,13 @@ megjelenitToplistat();
 
 function disableTouchInteractions() {
   const prevent = (e) => {
-    // Ha a cél egy gomb, ne tiltsuk le
-    if (e.target.closest(".button")) return;
+    // Ha a cél egy gomb vagy input mező, ne tiltsuk le
+    if (
+      e.target.closest(".button") ||
+      e.target === playerNameInput ||
+      e.target.closest("#namePrompt")
+    ) return;
+
     e.preventDefault();
   };
 
