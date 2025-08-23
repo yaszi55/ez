@@ -1,3 +1,7 @@
+setTimeout(() => {
+  disableTouchInteractions();
+}, 30000); // 30 másodperc után
+
 const orangeContainer = document.getElementById("orange-container");
 const yellowRow = document.getElementById("yellow-row");
 const roundLabel = document.getElementById("round-label");
@@ -251,6 +255,7 @@ function makeDraggable(elem) {
     elem.style.cursor = "grab";
     snapToOrangeSquare(elem);
   });
+elem.style.touchAction = "none"; // tiltja a pinch/zoom-ot, de engedi a drag-et
 
   elem.addEventListener("touchstart", (e) => {
     if (!elem.classList.contains("yellow")) return;
@@ -493,3 +498,17 @@ function megjelenitToplistat() {
 
 startNextRound();
 megjelenitToplistat();
+
+function disableTouchInteractions() {
+  const prevent = (e) => {
+    // Ha a cél egy gomb, ne tiltsuk le
+    if (e.target.closest(".button")) return;
+    e.preventDefault();
+  };
+
+  document.addEventListener("touchstart", prevent, { passive: false });
+  document.addEventListener("touchmove", prevent, { passive: false });
+  document.addEventListener("wheel", prevent, { passive: false });
+
+  document.body.style.touchAction = "none";
+}
