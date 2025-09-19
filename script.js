@@ -1,5 +1,5 @@
 setTimeout(() => {
-  disableTouchInteractions();
+disableTouchInteractions();
 }, 30000); // 30 másodperc után
 
 const orangeContainer = document.getElementById("orange-container");
@@ -100,7 +100,6 @@ for (const pos of labeledSquares) {
 }
 
 
-
 const originalRedPositions = labeledSquares.map(pos => `${pos.row},${pos.col}`);
 
 dictionaryButton.addEventListener("click", () => {
@@ -141,17 +140,23 @@ okButton.addEventListener("click", () => {
   clearInterval(timerInterval);
   endRound();
 });
-// 🔹 Skálázás funkció hozzáadva
+
+//skálázás
 function scaleGame() {
   const wrapper = document.getElementById("game-wrapper");
-  const gameWidth = 800;
-  const gameHeight = 800;
+
+  // A wrapper tényleges mérete skálázás előtt
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const gameWidth = wrapper.scrollWidth;
+  const gameHeight = wrapper.scrollHeight;
 
   const scaleX = window.innerWidth / gameWidth;
   const scaleY = window.innerHeight / gameHeight;
   currentScale = Math.min(scaleX, scaleY);
 
   wrapper.style.transform = `scale(${currentScale})`;
+  wrapper.style.transformOrigin = "top left";
+
 
   // 🔸 Sárga négyzetek pozíciófrissítése
   yellowSquares.forEach(square => {
@@ -167,22 +172,18 @@ function scaleGame() {
   // 🔸 Piros négyzetek pozíciófrissítése
   const redSquares = document.querySelectorAll(".square.red");
   redSquares.forEach(square => {
-  if (square.snappedTo) {
-    // 🔶 Narancs mezőhöz kapcsolt piros négyzet
-    const oRect = square.snappedTo.getBoundingClientRect();
-    const orangeLeft = (oRect.left + window.scrollX) / currentScale;
-    const orangeTop = (oRect.top + window.scrollY) / currentScale;
-    square.style.left = `${orangeLeft}px`;
-    square.style.top = `${orangeTop}px`;
-  } else if (square.originalLeft !== undefined && square.originalTop !== undefined) {
-    // 🔴 Fix pozíciójú piros négyzet (pl. JÁTÉK A BETŰKKEL felirat)
-    square.style.left = `${square.originalLeft / currentScale}px`;
-    square.style.top = `${square.originalTop / currentScale}px`;
-  }
-});
-
+    if (square.snappedTo) {
+      const oRect = square.snappedTo.getBoundingClientRect();
+      const orangeLeft = (oRect.left + window.scrollX) / currentScale;
+      const orangeTop = (oRect.top + window.scrollY) / currentScale;
+      square.style.left = `${orangeLeft}px`;
+      square.style.top = `${orangeTop}px`;
+    } else if (square.originalLeft !== undefined && square.originalTop !== undefined) {
+      square.style.left = `${square.originalLeft / currentScale}px`;
+      square.style.top = `${square.originalTop / currentScale}px`;
+    }
+  });
 }
-
 
 
 window.addEventListener("resize", scaleGame);
@@ -473,7 +474,7 @@ function renderToplista(toplista) {
   toplista.forEach((entry, index) => {
     const sor = document.createElement("div");
     sor.classList.add("toplista-entry");
-    sor.textContent = `${index + 1}. ${entry.name} - ${entry.score} pt`;
+    sor.textContent = `${index + 1}. ${entry.name} - ${entry.score}pt`;
     toplistaContainer.appendChild(sor);
   });
 }
