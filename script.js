@@ -186,6 +186,8 @@ function scaleGame() {
 }
 
 
+
+
 window.addEventListener("resize", scaleGame);
 window.addEventListener("load", scaleGame);
 
@@ -258,39 +260,50 @@ function makeDraggable(elem) {
   });
 elem.style.touchAction = "none"; // tiltja a pinch/zoom-ot, de engedi a drag-et
 
-  elem.addEventListener("touchstart", (e) => {
-    if (!elem.classList.contains("yellow")) return;
-    if (e.touches.length !== 1) return;
-    isDragging = true;
+elem.addEventListener("touchstart", (e) => {
+  if (!elem.classList.contains("yellow")) return;
+  if (e.touches.length !== 1) return;
+  isDragging = true;
 
-    const touch = e.touches[0];
-    const rect = elem.getBoundingClientRect();
-    offsetX = (touch.clientX - rect.left) / currentScale;
-    offsetY = (touch.clientY - rect.top) / currentScale;
+  const touch = e.touches[0];
+  const rect = elem.getBoundingClientRect();
+  offsetX = (touch.clientX - rect.left) / currentScale;
+  offsetY = (touch.clientY - rect.top) / currentScale;
 
-    elem.style.position = "absolute";
-    elem.style.zIndex = 1000;
-    elem.style.left = `${(touch.clientX - offsetX * currentScale) / currentScale}px`;
-    elem.style.top = `${(touch.clientY - offsetY * currentScale) / currentScale}px`;
-    elem.style.cursor = "grabbing";
-    wrapper.appendChild(elem);
-    e.preventDefault();
-  }, { passive: false });
+  elem.style.position = "absolute";
+  elem.style.zIndex = 1000;
+  elem.style.left = `${(touch.clientX - offsetX * currentScale) / currentScale}px`;
+  elem.style.top = `${(touch.clientY - offsetY * currentScale) / currentScale}px`;
+  elem.style.cursor = "grabbing";
 
-  document.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    elem.style.left = `${(touch.clientX - offsetX * currentScale) / currentScale}px`;
-    elem.style.top = `${(touch.clientY - offsetY * currentScale) / currentScale}px`;
-    e.preventDefault();
-  }, { passive: false });
+  // 🔹 Vizuális visszajelzés: árnyék és enyhe nagyítás
+  elem.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+  elem.style.transform = "scale(1.05)";
 
-  document.addEventListener("touchend", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    elem.style.cursor = "grab";
-    snapToOrangeSquare(elem);
-  });
+  wrapper.appendChild(elem);
+  e.preventDefault();
+}, { passive: false });
+
+document.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+  const touch = e.touches[0];
+  elem.style.left = `${(touch.clientX - offsetX * currentScale) / currentScale}px`;
+  elem.style.top = `${(touch.clientY - offsetY * currentScale) / currentScale}px`;
+  e.preventDefault();
+}, { passive: false });
+
+document.addEventListener("touchend", () => {
+  if (!isDragging) return;
+  isDragging = false;
+  elem.style.cursor = "grab";
+
+  // 🔹 Vizuális visszaállítás
+  elem.style.boxShadow = "none";
+  elem.style.transform = "scale(1)";
+
+  snapToOrangeSquare(elem);
+});
+
 }
 
 
