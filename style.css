@@ -51,6 +51,8 @@ body {
   cursor: grab;
   font-weight: bold;
   font-size: 20px;
+  touch-action: manipulation;
+
 }
 
 .yellow .number {
